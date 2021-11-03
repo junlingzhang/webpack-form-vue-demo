@@ -113,7 +113,7 @@ module.exports = {
       {
         test: /\.css$/,
         /*options:{sourceMap:true},*/
-        use: ["style-loader", "css-loader"]
+        use: ["css-loader"]
       },
       {
         test: /\.less$/,
