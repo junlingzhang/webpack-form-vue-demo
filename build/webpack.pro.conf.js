@@ -97,11 +97,39 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
+        new webpack.BannerPlugin("注释内容"), //内置的 BannerPlugin 插件，用于在文件头部输出一些注释信息
         new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            minify: {
+                // 压缩选项
+                caseSensitive: false, //是否大小写敏感
+                collapseBooleanAttributes: true, //是否简写boolean格式的属性如：disabled="disabled" 简写为disabled
+                collapseWhitespace: true, //是否去除空格
+                removeComments: true, // 移除注释
+                removeAttributeQuotes: true, // 移除双引号
+                showErrors: true // showErrors 的作用是，如果 webpack 编译出现错误，webpack会将错误信息包裹在一个 pre 标签内，属性的默认值为 true
+            }
+        }),
+        new UglifyJsPlugin({
+            //压缩js
+            cache: true, //当js无变化则不压缩
+            parallel: true, //是否启用并行压缩
+            sourceMap: true
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, "../src/assets"),
+                    to: path.resolve(__dirname, "../dist/assets")
+                }
+            ],
+            options: {}
+        }),
+        /*new BundleAnalyzerPlugin(),*/
+        new OptimizeCssAssetsPlugin({}), //压缩css
         new MiniCssExtractPlugin({
             filename: 'css/[name].[hash:5].css'
         }),
-        new OptimizeCssAssetsPlugin(),
         new UglifyJsPlugin({
             uglifyOptions: {
                 compress: {

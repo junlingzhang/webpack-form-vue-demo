@@ -58,41 +58,13 @@ module.exports = {
     new VueLoaderPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.BannerPlugin("注释内容"), //内置的 BannerPlugin 插件，用于在文件头部输出一些注释信息
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       date: new Date(),
       // options配置
       title: "123",
       filename: "index.html",
       template: path.resolve(__dirname, "../public/index.html"),
-      minify: {
-        // 压缩选项
-        caseSensitive: false, //是否大小写敏感
-        collapseBooleanAttributes: true, //是否简写boolean格式的属性如：disabled="disabled" 简写为disabled
-        collapseWhitespace: true, //是否去除空格
-        removeComments: true, // 移除注释
-        removeAttributeQuotes: true, // 移除双引号
-        showErrors: true // showErrors 的作用是，如果 webpack 编译出现错误，webpack会将错误信息包裹在一个 pre 标签内，属性的默认值为 true
-      }
     }),
-    new OptimizeCssAssetsPlugin({}), //压缩css
-    new UglifyJsPlugin({
-      //压缩js
-      cache: true, //当js无变化则不压缩
-      parallel: true, //是否启用并行压缩
-      sourceMap: true
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, "../src/assets"),
-          to: path.resolve(__dirname, "../dist/assets")
-        }
-      ],
-      options: {}
-    })
-    /*new BundleAnalyzerPlugin(),*/
   ],
   module: {
     rules: [
